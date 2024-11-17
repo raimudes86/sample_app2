@@ -1,7 +1,8 @@
 require "test_helper"
 
 class SiteLayoutTest < ActionDispatch::IntegrationTest
-  
+
+  #このlayout linksはこのテスト自体の名前だからなんでもいい
   test "layout links" do
     get root_path
     assert_template 'static_pages/home'
