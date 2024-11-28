@@ -10,6 +10,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      #セキュリティ対策で
+      #flashメッセージを入れた後にresetするとフラッシュメッセージも消えるから順番に注意
+      reset_session
+      log_in @user
       flash[:success] = "Welcom to the Sample App!"
       redirect_to user_path(@user)
       # render "show"
