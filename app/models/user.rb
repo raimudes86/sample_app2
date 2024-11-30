@@ -26,6 +26,7 @@ class User < ApplicationRecord
   end
 
   #永続的セッションのためにユーザーをデータベースに記憶する
+  #ランダムな文字列を生成して、それを暗号化してデータベースに保存！
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
