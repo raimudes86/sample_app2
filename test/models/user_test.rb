@@ -2,7 +2,7 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @user = User.new(name: "Example User", email: "user@example.com", password: "foobarac", password_confirmation: "foobarac")
+    @user = User.new(name: "Example User", email: "user@example.com", password: "foobarbee", password_confirmation: "foobarbee")
   end
 
   test "should be valid" do
@@ -70,7 +70,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  test "token_authenticated? shold retur false for a user with nil digest" do
-    assert_not @user.token_authenticated?('')
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?(:remember, '')
   end
 end

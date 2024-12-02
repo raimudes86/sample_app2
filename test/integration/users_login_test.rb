@@ -1,5 +1,6 @@
 require "test_helper"
 
+#テストでは末尾がTestで終わるクラスを実行するので、setupメソッドしか持たないクラスの末尾にTestをつけるべきではない
 class UsersLogin < ActionDispatch::IntegrationTest
   #usersはfixturesのusersから来ている
   def setup
@@ -28,6 +29,8 @@ end
 #ログイン済みの状態の作成
 class ValidLogin < UsersLogin
 
+  #superを書くのは、ここで有効なログイン状態を作り出す時にsetupをオーバーライドするので
+  #superを呼ばないと@
   def setup
     super
     post login_path, params: { session: { email:    @user.email,
@@ -40,7 +43,7 @@ class ValidLoginTest < ValidLogin
 
   test "valid login" do
     assert is_logged_in?
-    assert_redirected_to @user
+    assert_redirected_to user_path(@user)
   end
 
   test "redirect after login" do
