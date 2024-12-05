@@ -13,13 +13,13 @@ User.create!(name: "Example User",
             activated: true,
             activated_at: Time.zone.now)
 
-User.create!(name: "kinoshita raimu",
-            email: "raijirou12@gmail.com",
-            password: "raimU2415",
-            password_confirmation: "raimU2415",
-            admin: true,
-            activated: true,
-            activated_at: Time.zone.now)
+# User.create!(name: "kinoshita raimu",
+#             email: "raijirou12@gmail.com",
+#             password: "raimU2415",
+#             password_confirmation: "raimU2415",
+#             admin: true,
+#             activated: true,
+#             activated_at: Time.zone.now)
 
 # 追加のユーザーをまとめて生成する
 99.times do |n|
@@ -41,3 +41,11 @@ users = User.order(:created_at).take(6)
     content = Faker::Lorem.sentence(word_count: 5)
     users.each { |user| user.microposts.create!(content: content) }
 end
+
+#フォローのリレーションシップを生成する
+users = User.all
+user  = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }
