@@ -18,5 +18,9 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     @user.microposts.paginate(page: 1).each do |micropost|
       assert_match micropost.content, response.body
     end
+    #リンクが存在するときに、
+    assert_select "a[href=?]", following_user_path(@user) do
+      assert_select "strong#following.stat", text: @user.following.count.to_s
+    end
   end
 end
